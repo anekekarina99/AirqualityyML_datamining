@@ -1,9 +1,12 @@
 import numpy as np
 from flask import Flask, request, jsonify, render_template
 import pickle
+# Inisialisasi aplikasi Flask
+with open('model.pkl', 'rb') as file:  
+    model = pickle.load(file)
 
-app = Flask(__name__) # Inisialisasi aplikasi Flask
-model = pickle.load(open('model.pkl', 'rb')) # Memuat model yang telah dilatih
+
+app = Flask(__name__) 
 
 @app.route('/') # Halaman utama
 def home():
@@ -12,9 +15,9 @@ def home():
 @app.route('/predict', methods=['POST'])
 def predict():
     # Mendapatkan nilai dari formulir
-    init_features = [float(x) for x in request.form.values()]
-    final_features = [np.array(init_features)]
-    prediction = model.predict(final_features) # Melakukan prediksi
+    pm10 = request.form['pm10']
+    pm25 = request.form['pm25']
+    prediction = model.predict(np.array([ int(pm10), int(pm25)]) )# Melakukan prediksi
 
     output = int(prediction[0])
 
