@@ -12,11 +12,14 @@ def home():
 @app.route('/predict', methods=['POST'])
 def predict():
     # Mendapatkan nilai dari formulir
-    init_features = [int(x) for x in request.form.values()]
+    init_features = [float(x) for x in request.form.values()]
     final_features = [np.array(init_features)]
     prediction = model.predict(final_features) # Melakukan prediksi
 
-    return render_template('index.html', prediction_text='Kualitas udara diprediksi: {}'.format(prediction)) # Merender hasil prediksi
+    output = int(prediction[0])
+
+    return render_template('index.html', prediction_text='Kualitas udara diprediksi: {}'.format(output)) # Merender hasil prediksi
+
 
 if __name__ == "__main__":
     app.run(debug=True)

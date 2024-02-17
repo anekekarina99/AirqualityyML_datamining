@@ -53,7 +53,7 @@
 <body>
   <div class="container">
     <h1>Prediksi Kualitas Udara di Jakarta Pusat</h1>
-    <form action="{{ url_for('predict')}}" method="post">
+    <form action="http://localhost:5000/" method="post">
         <input type="text" name="pm10" placeholder="PM10 (μg/m3)" required="required" />
         <input type="text" name="pm25" placeholder="PM2.5 (μg/m3)" required="required" />
         <button type="submit">Predict</button>
